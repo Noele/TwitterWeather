@@ -1,5 +1,7 @@
 import json, time
 from pathlib import Path
+import numpy as np
+import datetime
 
 class JsonHandler():
     def __init__(self):
@@ -47,5 +49,32 @@ class JsonHandler():
         print(f"Temprature : {round(jsonResponce.get('main').get('temp') - 273.15)}°c")
         print(f"Weather Condition: {jsonResponce.get('weather')[0].get('main')}")
 
+
+    def RetrivePastTenTempratures(self):
+        listOfTemps = np.array([])
+        loopCount = 0
+        if len(self.WeatherDataJson["WeatherData"]) < 10:
+            return False
+        for data in self.WeatherDataJson["WeatherData"]:
+            loopCount += 1
+            if loopCount == 11:
+                break
+            for key in data.keys():
+                listOfTemps = np.append(listOfTemps, data[key]["temprature"])
+        return listOfTemps
+
+    def RetrivePastTenDates(self):
+        listOfDates = np.array([])
+        loopCount = 0
+        if len(self.WeatherDataJson["WeatherData"]) < 10:
+            return False
+        for data in self.WeatherDataJson["WeatherData"]:
+            loopCount += 1
+            if loopCount == 11:
+                break
+            for key in data.keys():
+                date = datetime.datetime.fromtimestamp(float(key)).strftime("%B %d, %Y")
+                listOfDates = np.append(listOfDates, str(date))
+        return listOfDates
 
 JsonHandler = JsonHandler()
