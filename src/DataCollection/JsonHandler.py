@@ -1,14 +1,13 @@
-import json, time
+import json, time, datetime
 from pathlib import Path
 import numpy as np
-import datetime
 
 class JsonHandler():
     def __init__(self):
         #Get the path of Config.json
-        current_path = Path(__file__).parents[0]
-        self.configPath = Path(current_path / 'Data/Config.json')
-        self.weatherDataPath = Path(current_path / 'Data/WeatherData.json')
+        current_path = Path(__file__).parents[1]
+        self.configPath = Path(current_path / 'Data/DataCollection/Config.json')
+        self.weatherDataPath = Path(current_path / 'Data/DataCollection/WeatherData.json')
 
         self.url = "https://api.openweathermap.org/data/2.5/weather?q=Edinburgh,uk&appid=";
         self.apiKey = ""
@@ -76,5 +75,18 @@ class JsonHandler():
                 date = datetime.datetime.fromtimestamp(float(key)).strftime("%B %d, %Y")
                 listOfDates = np.append(listOfDates, str(date))
         return listOfDates
+
+    def RetrivePastTenConditions(self):
+        listOfConditions = np.array([])
+        loopCount = 0
+        if len(self.WeatherDataJson["WeatherData"]) < 10:
+            return False
+        for data in self.WeatherDataJson["WeatherData"]:
+            loopCount += 1
+            if loopCount == 11:
+                break
+            for key in data.keys():
+                listOfConditions = np.append(listOfConditions, data[key]["condition"])
+        return listOfConditions
 
 JsonHandler = JsonHandler()
