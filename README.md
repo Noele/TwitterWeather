@@ -6,4 +6,4 @@ As this was built with the free version of [OpenWeatherMap](https://openweatherm
 
 An example of the output is as follows - ![alt text](https://i.imgur.com/VgNYqwG.png)
 
-Note that the data in this image was manually added to the WeatherData.json file
+Note that the data in this image was manually added to the WeatherData.json file and not representative of the actual conditions of those dates, This is purely illustrative of the final result
