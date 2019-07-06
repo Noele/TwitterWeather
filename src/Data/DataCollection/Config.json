@@ -1,3 +1,9 @@
 {
-  "APIKEY": ""
+  "OWMAPIKEY": "",
+
+  "TWITTER-API-KEY": "",
+  "TWITTER-SECRET-API-KEY": "",
+
+  "TWITTER-ACCESS-TOKEN": "",
+  "TWITTER-SECRET-ACCESS-TOKEN": ""
 }
