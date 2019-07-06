@@ -10,6 +10,7 @@ class Graph():
         self.DrawingConditionsPath = "Data/Drawing/Conditions/"
 
     def CreateGraph(self):
+        """Main Graph Function, Responsible for building the graph"""
         #Grab the past 10 datasets
         tempratures = JH.JsonHandler.RetrivePastTenTempratures()
         dates = JH.JsonHandler.RetrivePastTenDates()
@@ -27,10 +28,11 @@ class Graph():
         self.DrawGraphConditionImages(background, conditions)
 
         #Save the result
-        background.save(f"{self.DrawingBuiltImagesPath}/new.png", "PNG")
+        background.save(f"{self.DrawingBuiltImagesPath}/finaloutput.png", "PNG")
 
 
     def ValidateDataSets(self, tempratures, dates, conditions):
+        """Validate the data we collect from JsonHandler"""
         try:
             if tempratures == False:
                 print("Not enough data in WeatherData.json")
@@ -46,6 +48,7 @@ class Graph():
         return True
 
     def DrawGraphMain(self, tempratures, dates, conditions):
+        """Our main drawing function, Draws 90% of what we see"""
         #Draw all of the main graph features
 
         # Create an array 1 - 10, This will act as our x layer.
@@ -86,6 +89,7 @@ class Graph():
 
 
     def DrawGraphConditionImages(self, background, conditions):
+        """Draws the weather symbols onto the graph"""
         #Paste the condition (ie, rain, cloudy, Thunderstorms) to the graph with the correct spacing
         #The lack of a switch statement in python makes this a little less clean, So i opt for if elif
         for i in range(0, 10):
@@ -118,6 +122,5 @@ class Graph():
                 background.paste(conditionImage, ((x + (i * xDif)), y), conditionImage)
 
         return background
-
 
 Graph = Graph()

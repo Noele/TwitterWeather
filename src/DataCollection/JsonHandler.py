@@ -1,4 +1,4 @@
-import json, time, datetime
+import json, time, datetime, sys
 from pathlib import Path
 import numpy as np
 
@@ -20,7 +20,10 @@ class JsonHandler():
         with self.weatherDataPath.open() as file:
             self.WeatherDataJson = json.load(file)
 
-
+        for value in self.configJson:
+            if self.configJson[value] == "":
+                print(f"{value} in Config.json is empty, Exiting.")
+                sys.exit()
     #Method for saving data to WeatherData.json
     def SaveWeatherData(self):
         with open(self.weatherDataPath, 'w') as fp:
@@ -29,12 +32,14 @@ class JsonHandler():
 
     #Get the apikey from Config.json and append it to self.url
     def GetApiUrlAndKey(self):
+        """Collect the weather api key from config.json"""
         print("Collecting api key from Config.json")
-        self.apiKey = self.configJson["APIKEY"]
+        self.apiKey = self.configJson["OWMAPIKEY"]
         return self.url + self.apiKey
 
 
     def SaveReleventDataFromApi(self, jsonResponce):
+        """Save the data we need from OpenWeatherMaps"""
         # Create an inventory of the data we collected
         default_inv = {"name": jsonResponce.get('name'), "temprature": round(jsonResponce.get('main').get('temp') - 273.15),
                        "condition": jsonResponce.get('weather')[0].get('main')}
@@ -50,6 +55,7 @@ class JsonHandler():
 
 
     def RetrivePastTenTempratures(self):
+        """Return the past 10 tempratures in WeatherData.json"""
         listOfTemps = np.array([])
         loopCount = 0
         if len(self.WeatherDataJson["WeatherData"]) < 10:
@@ -63,6 +69,7 @@ class JsonHandler():
         return listOfTemps
 
     def RetrivePastTenDates(self):
+        """Return the past 10 dates in WeatherData.json"""
         listOfDates = np.array([])
         loopCount = 0
         if len(self.WeatherDataJson["WeatherData"]) < 10:
@@ -77,6 +84,7 @@ class JsonHandler():
         return listOfDates
 
     def RetrivePastTenConditions(self):
+        """Return the past 10 Conditions in WeatherData.json"""
         listOfConditions = np.array([])
         loopCount = 0
         if len(self.WeatherDataJson["WeatherData"]) < 10:
@@ -89,4 +97,19 @@ class JsonHandler():
                 listOfConditions = np.append(listOfConditions, data[key]["condition"])
         return listOfConditions
 
+    def RetriveTwitterApiKey(self):
+        """Return the twitter api key"""
+        return self.configJson["TWITTER-API-KEY"]
+
+    def RetriveTwitterSecretApiKey(self):
+        """Return the secret twitter api key"""
+        return self.configJson["TWITTER-SECRET-API-KEY"]
+
+    def RetriveTwitterAccessToken(self):
+        """Return the twitter access token"""
+        return self.configJson["TWITTER-ACCESS-TOKEN"]
+
+    def RetriveTwitterSecretAccessToken(self):
+        """Return the secret twitter access token"""
+        return self.configJson["TWITTER-SECRET-ACCESS-TOKEN"]
 JsonHandler = JsonHandler()

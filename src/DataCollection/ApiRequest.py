@@ -7,6 +7,7 @@ class ApiRequest():
 
 
     def CollectWeatherDataFromApi(self):
+        """Collects the data from OpenWeatherMaps, Most of the code for this is in JsonHandler, So this acts as a main method"""
         # Call our function to get the api key
         self.url = JH.JsonHandler.GetApiUrlAndKey()
 
