@@ -1,5 +1,5 @@
 # Twitter Weather, Made by Noelee
-# 3rd party libs used - PIL scipy matplotlib numpy pathlib requests
+# 3rd party libs used - PIL, scipy, matplotlib, numpy, pathlib, requests and tweepy
 
 
 import DataCollection.ApiRequest as APIR
