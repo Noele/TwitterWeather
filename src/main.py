@@ -12,7 +12,7 @@ class main():
     def main(self):
         """Main class to keep everything in order"""
         print("Starting \"CollectWeatherDataFromApi\" from ApiRequest.py")
-        #APIR.ApiRequest.CollectWeatherDataFromApi()
+        APIR.ApiRequest.CollectWeatherDataFromApi()
         print("Starting \"CreateGraph\" from Graph.py")
         Draw.Graph.CreateGraph()
         print("Starting \"OAuthSend\" from OAuthMain.py")
