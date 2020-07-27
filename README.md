@@ -1,4 +1,4 @@
-### This project is no longer in development.
+
 # TwitterWeather
 
 Twitter Weather collects data from the API [OpenWeatherMap](https://openweathermap.org/) and displays the Date on the x Axis, and the temprature on the y Axis
